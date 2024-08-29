@@ -6,6 +6,12 @@
 // When the 10 sections of guessing is complete, add up all the points the user had and display it to the user and if the user got up to average, also display "Wow, you are good" along side with the score and if the user didn't get up to average, display "You should be nicknamed AJALEKOKO" with a laughing emoji along side with the score.
 // And then log the user out, remember they are logging in only with nickname
 
+var fail = new Audio("Audio/fail-234710.mp3")
+var failure = new Audio("Audio/wah-wah-sad-trombone-6347.mp3")
+var clap = new Audio("Audio/mixkit-clapping-fast-480.wav")
+var success = new Audio("Audio/mixkit-conference-audience-clapping-strongly-476.wav")
+
+
 let nickname;
 let points = 0;
 let currentSection = 1;
@@ -23,8 +29,19 @@ function startGame() {
     document.getElementById('game-screen').style.display = 'block';
     startSection();
 }
-
+const bb = ' gggg'
+bb = " ggg"
+console.log(bb);
+const myFunc = () => {
+ console.log(" nnnnnn")
+}
+myFunc()
+startSection()
 function startSection() {
+    var myName = "samuel"
+    let yourName = "Dan Afo"
+   console.warn("myPoints:", points)
+   console.warn("myName:", myName)
     if (currentSection > 4) {
         endGame();
         return;
@@ -36,6 +53,7 @@ function startSection() {
     document.getElementById('guess-input').value = '';
     startTimer();
 }
+
 
 function startTimer() {
     let timeLeft = 10;
@@ -66,14 +84,17 @@ function processGuess(isCorrect, guess) {
         points += 2;
         document.getElementById('message').textContent = 'Correct! You earned 2 points.';
         setTimeout(nextSection, 4000);
+        clap.play();
     } else {
         attempts++;
         if (attempts < 3) {
             document.getElementById('message').textContent = `Wrong! You have ${3 - attempts} attempts left.`;
             startTimer();
+            fail.play();
         } else {
             document.getElementById('message').textContent = `Wrong! The correct number was ${secretNumber}. No points for this section.`;
             setTimeout(nextSection, 4000);
+            fail.play();
         }
     }
 }
@@ -90,8 +111,10 @@ function endGame() {
     document.getElementById('final-score').textContent = `Your final score is: ${points}`;
     if (points >= average) {
         document.getElementById('final-score').textContent += '\nWow, you are good!';
+        success.play();
     } else {
         document.getElementById('final-score').textContent += '\nYou should be nicknamed AJALEKOKO 😂';
+        failure.play();
     }
 }
 
